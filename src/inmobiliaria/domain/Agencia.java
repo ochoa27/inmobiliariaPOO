@@ -50,7 +50,7 @@ public class Agencia {
 
     public boolean vender(Inmueble inmuebleAVender){
         if((inmuebleAVender instanceof Arrendable) && (inmuebleAVender.isArrendado()==true)) {
-            System.out.println("el inmueble no se ha podido vender por que se encuentra arrendado");
+            System.out.println("el inmueble no se ha puede vender por que se encuentra arrendado");
         } else
             System.out.println("el inmueble se puede vender");
         return  true;
