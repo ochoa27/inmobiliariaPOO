@@ -25,4 +25,5 @@ public class Casa extends Inmueble implements Arrendable {
                 ", arrendado=" + isArrendado() +
                 '}';
     }
+
 }

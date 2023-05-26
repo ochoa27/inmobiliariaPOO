@@ -9,8 +9,9 @@ public class Lote extends Inmueble {
 
     @Override
     public String toString() {
-        return "Casa{" +
+        return "Lote{" +
                 "direccion='" + getDireccion()+ '\'' +
                 ", valorVenta=" + getValorVenta();
     }
+
 }

@@ -2,6 +2,8 @@ package inmobiliaria.domain;
 
 import inmobiliaria.excepcion.InmuebleNoArrendableExcepcion;
 import inmobiliaria.excepcion.InmuebleExistenteExcepcion;
+import inmobiliaria.excepcion.InmuebleNoValidoExcepcion;
+import inmobiliaria.excepcion.ValorArriendoMayorExcepcion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,13 @@ public class Agencia {
     }
 
     public void agregarInmueble(Inmueble inmueble){
+        if (inmueble instanceof Arrendable) {
+            this.verificarValorArriendo(inmueble);
+        }
         this.verificarInmuebleExistente(inmueble);
         this.inmuebles.add(inmueble);
     };
+
 
     public boolean arrendar(Inmueble inmuebleArrendable) {
         this.verificarInmuebleArrendable(inmuebleArrendable);
@@ -33,11 +39,12 @@ public class Agencia {
     };
 
     public boolean devolver( Inmueble inmuebleADevolver) {
+//        this.inmuebleNoValido(inmuebleADevolver);
         boolean respuestaAdevolver;
         if ((inmuebleADevolver instanceof Arrendable)&&(inmuebleADevolver.isArrendado() == true)){
                 inmuebleADevolver.setArrendado(false);
                 respuestaAdevolver = false;
-        }respuestaAdevolver=true;
+        }else respuestaAdevolver=true;
         return  respuestaAdevolver;
     };
 
@@ -68,6 +75,11 @@ public class Agencia {
         }
         return inmueblesArrendados;
     }
+    public void ListaDeInmueblesTotales(){
+        for(Inmueble item:inmuebles){
+            System.out.println(item.toString());
+        }
+    }
 
     public void verificarInmuebleArrendable(Inmueble inmueble){
         if (!(inmueble instanceof Arrendable)){
@@ -82,6 +94,18 @@ public class Agencia {
 
 
         }
+    }
+    public void verificarValorArriendo(Inmueble inmueble){
+        if (inmueble.getValorArriendo()>=inmueble.getValorVenta()){
+            throw new ValorArriendoMayorExcepcion("el valor del arriendo no puede ser mayor a el valor de venta");
+
+        }
+    }
+    public void inmuebleNoValido(Inmueble inmueble){
+        if(!(inmueble instanceof Arrendable)){
+            throw new InmuebleNoValidoExcepcion("este inmueble no es valido");
+        }
+
     }
 
     public String getNombre() {
